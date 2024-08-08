@@ -1,0 +1,4 @@
+include:
+  - .install
+  - .running
+  - .runsh
