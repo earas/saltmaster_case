@@ -1,0 +1,3 @@
+#/bin/bash
+export EXPORTERHOST=$(echo  -e $(aws ec2 describe-instances --filters "Name=tag:Name,Values=ARAS-active-kafka-0" --query 'Reservations[*].Instances[*].[PrivateIpAddress, Tags[?Key==`Name`].Value]'| jq -r '.[][] | "\(.[1][0]) \(.[0])"' |grep -v null | sort | awk '{print $2""}'  | paste -sd, -))
+envsubst < /etc/prometheus/prometheus.yml > tmp.txt && mv tmp.txt /etc/prometheus/prometheus.yml && rm -rf tmp.txt
