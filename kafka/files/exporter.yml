@@ -1,0 +1,57 @@
+logger:
+  level: info
+kafka:
+  brokers: ["$BROKERNAME"]
+  clientId: "kminion"
+  rackId: ""
+  sasl:
+    enabled: false
+    username: ""
+    password: ""
+    mechanism: "PLAIN"
+    gssapi:
+      authType: ""
+      keyTabPath: ""
+      kerberosConfigPath: ""
+      serviceName: ""
+      username: ""
+      password: ""
+      realm: ""
+      enableFast: true
+minion:
+  consumerGroups:
+    enabled: true
+   
+    granularity: partition
+    allowedGroups: [ ".*" ]
+    ignoredGroups: [ ]
+  topics:
+    granularity: partition
+    allowedTopics: [ ".*" ]
+    ignoredTopics: [ ]
+    infoMetric:
+      configKeys: [ "cleanup.policy" ]
+  logDirs:
+    enabled: true
+
+  endToEnd:
+    enabled: false
+    probeInterval: 100ms
+    topicManagement:
+      enabled: true
+      name: kminion-end-to-end
+      reconciliationInterval: 10m
+      replicationFactor: 1
+      partitionsPerBroker: 1
+    producer:
+      ackSla: 5s
+      requiredAcks: all
+    consumer:
+      groupIdPrefix: kminion-end-to-end
+      deleteStaleConsumerGroups: false
+      roundtripSla: 20s
+      commitSla: 10s
+exporter:
+  namespace: "kminion"
+  host: ""
+  port: 8080

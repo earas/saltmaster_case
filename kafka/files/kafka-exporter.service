@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+Type=simple
+Environment=CONFIG_FILEPATH=/etc/kafka-exporter/exporter.yml
+ExecStart=/bin/bash -c '/etc/kafka-exporter/kminion'
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target
